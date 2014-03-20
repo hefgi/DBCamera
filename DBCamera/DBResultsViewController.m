@@ -1,18 +1,18 @@
 //
-//  DBNavigationViewController.m
+//  DBResultsViewController.m
 //  DBCamera
 //
 //  Created by FrancoisJulien ALCARAZ on 3/19/2014.
 //  Copyright (c) 2014 PSSD - Daniele Bogo. All rights reserved.
 //
 
-#import "DBNavigationViewController.h"
+#import "DBResultsViewController.h"
 
-@interface DBNavigationViewController ()
+@interface DBResultsViewController ()
 
 @end
 
-@implementation DBNavigationViewController
+@implementation DBResultsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,14 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSArray *)dataArray {
-    
-    NSArray * array = [NSArray arrayWithObjects:[NSArray arrayWithObjects:[self image1], [self metaData1], nil],[NSArray arrayWithObjects:[self image2], [self metaData2], nil], nil];
-    
-    return array;
-    
 }
 
 @end

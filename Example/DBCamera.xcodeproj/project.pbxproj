@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10092D3C18DA6F4E006C481B /* DBNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10092D3A18DA6F4E006C481B /* DBNavigationViewController.m */; };
+		10092D4A18DA72C7006C481B /* DBResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10092D4918DA72C7006C481B /* DBResultsViewController.xib */; };
+		10092D4F18DA72D6006C481B /* DBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10092D4C18DA72D6006C481B /* DBResultsViewController.m */; };
+		10092D5018DA72D6006C481B /* DBNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10092D4D18DA72D6006C481B /* DBNavigationViewController.m */; };
 		9A11717B18B24DC900C4CD82 /* DBCameraImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A11717A18B24DC900C4CD82 /* DBCameraImageView.m */; };
 		9A14055818C8822E00A590AB /* DBCameraContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A14055718C8822E00A590AB /* DBCameraContainer.m */; };
 		9A14055B18C8865100A590AB /* DBCameraLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A14055A18C8865100A590AB /* DBCameraLibrary.m */; };
@@ -49,8 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		10092D3A18DA6F4E006C481B /* DBNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNavigationViewController.m; sourceTree = "<group>"; };
-		10092D3B18DA6F4E006C481B /* DBNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNavigationViewController.h; sourceTree = "<group>"; };
+		10092D4918DA72C7006C481B /* DBResultsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DBResultsViewController.xib; path = ../../DBCamera/DBResultsViewController.xib; sourceTree = "<group>"; };
+		10092D4B18DA72D6006C481B /* DBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBResultsViewController.h; path = ../../DBCamera/DBResultsViewController.h; sourceTree = "<group>"; };
+		10092D4C18DA72D6006C481B /* DBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBResultsViewController.m; path = ../../DBCamera/DBResultsViewController.m; sourceTree = "<group>"; };
+		10092D4D18DA72D6006C481B /* DBNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBNavigationViewController.m; path = ../../DBCamera/DBNavigationViewController.m; sourceTree = "<group>"; };
+		10092D4E18DA72D6006C481B /* DBNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBNavigationViewController.h; path = ../../DBCamera/DBNavigationViewController.h; sourceTree = "<group>"; };
 		9A11717918B24DC900C4CD82 /* DBCameraImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBCameraImageView.h; path = ../../DBCamera/DBCameraImageView.h; sourceTree = "<group>"; };
 		9A11717A18B24DC900C4CD82 /* DBCameraImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBCameraImageView.m; path = ../../DBCamera/DBCameraImageView.m; sourceTree = "<group>"; };
 		9A11717C18B261C600C4CD82 /* DBCameraMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBCameraMacros.h; path = ../../DBCamera/DBCameraMacros.h; sourceTree = "<group>"; };
@@ -132,6 +137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10092D4318DA7284006C481B /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				10092D4918DA72C7006C481B /* DBResultsViewController.xib */,
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
 		9A14055C18C8931500A590AB /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,8 +193,10 @@
 		9A55F74F18C79695007FB6A1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				10092D3A18DA6F4E006C481B /* DBNavigationViewController.m */,
-				10092D3B18DA6F4E006C481B /* DBNavigationViewController.h */,
+				10092D4B18DA72D6006C481B /* DBResultsViewController.h */,
+				10092D4C18DA72D6006C481B /* DBResultsViewController.m */,
+				10092D4D18DA72D6006C481B /* DBNavigationViewController.m */,
+				10092D4E18DA72D6006C481B /* DBNavigationViewController.h */,
 				9A14055618C8822E00A590AB /* DBCameraContainer.h */,
 				9A14055718C8822E00A590AB /* DBCameraContainer.m */,
 				9AB597D3189BB08A001BCAD3 /* DBCameraViewController.h */,
@@ -278,6 +293,7 @@
 		9AB597D2189BB04B001BCAD3 /* DBCamera */ = {
 			isa = PBXGroup;
 			children = (
+				10092D4318DA7284006C481B /* Interfaces */,
 				9A11717C18B261C600C4CD82 /* DBCameraMacros.h */,
 				9A5134CA18A24811004E72EB /* DBCameraDelegate.h */,
 				9A14055C18C8931500A590AB /* Objects */,
@@ -381,6 +397,7 @@
 				9A50C7B018AA432200CD2DF3 /* DBCamera.strings in Resources */,
 				9A50C7F118AA6C9100CD2DF3 /* DBCameraImages.xcassets in Resources */,
 				9AB597AE189BAF9A001BCAD3 /* InfoPlist.strings in Resources */,
+				10092D4A18DA72C7006C481B /* DBResultsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,8 +428,9 @@
 				9A14055818C8822E00A590AB /* DBCameraContainer.m in Sources */,
 				9AB597D5189BB08A001BCAD3 /* DBCameraViewController.m in Sources */,
 				9AF961A718A252690068E3C6 /* CustomCamera.m in Sources */,
-				10092D3C18DA6F4E006C481B /* DBNavigationViewController.m in Sources */,
 				9A14055B18C8865100A590AB /* DBCameraLibrary.m in Sources */,
+				10092D4F18DA72D6006C481B /* DBResultsViewController.m in Sources */,
+				10092D5018DA72D6006C481B /* DBNavigationViewController.m in Sources */,
 				9AB597D9189BB0B6001BCAD3 /* RootViewController.m in Sources */,
 				9A11717B18B24DC900C4CD82 /* DBCameraImageView.m in Sources */,
 				9A14055F18C8935A00A590AB /* DBCollectionViewCell.m in Sources */,
