@@ -5,7 +5,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DBResultsViewController">
+            <connections>
+                <outlet property="imageView1" destination="t3L-mx-5Bd" id="0lL-aS-Cun"/>
+                <outlet property="imageView2" destination="7OE-Ff-ifV" id="vZ1-jC-JON"/>
+                <outlet property="textView" destination="eD6-sf-ooN" id="sTu-Cd-m2u"/>
+                <outlet property="toolBar" destination="dL2-m6-w6p" id="S15-PD-36z"/>
+                <outlet property="view" destination="1" id="8d2-09-4Hd"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -15,13 +23,15 @@
                     <rect key="frame" x="0.0" y="64" width="320" height="200"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eD6-sf-ooN">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Some text." translatesAutoresizingMaskIntoConstraints="NO" id="eD6-sf-ooN">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="09a-yz-GdH"/>
+                            </connections>
                         </textView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t3L-mx-5Bd">
                             <rect key="frame" x="40" y="90" width="100" height="100"/>
@@ -40,7 +50,7 @@
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.94777052179999999" blue="0.79108208739999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="7OE-Ff-ifV" secondAttribute="bottom" constant="10" id="5rZ-Bn-w0c"/>
                         <constraint firstAttribute="bottom" secondItem="eD6-sf-ooN" secondAttribute="bottom" constant="120" id="90V-KV-Uhm"/>
@@ -60,15 +70,25 @@
                         <constraint firstAttribute="height" constant="64" id="r35-tc-IgG"/>
                     </constraints>
                     <items>
-                        <barButtonItem title="Annuler" id="53H-ZB-YUc"/>
+                        <barButtonItem title="Annuler" id="53H-ZB-YUc">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="-1" id="QMD-vW-fxy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Wkc-6X-T9D"/>
                         <barButtonItem title="Wave" id="WwD-i1-2oX">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="s8n-gf-Mvw"/>
-                        <barButtonItem title="Publier" id="9HS-4N-8yF"/>
+                        <barButtonItem title="Publier" id="9HS-4N-8yF">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="sendButtonPressed:" destination="-1" id="4qq-zS-UHO"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
-                    <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" red="0.23529411759999999" green="0.76862745099999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -81,7 +101,7 @@
                 <constraint firstAttribute="bottom" secondItem="HI7-iC-SBj" secondAttribute="bottom" constant="216" id="edX-O7-8qw"/>
                 <constraint firstAttribute="trailing" secondItem="dL2-m6-w6p" secondAttribute="trailing" id="zob-DG-Grk"/>
             </constraints>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

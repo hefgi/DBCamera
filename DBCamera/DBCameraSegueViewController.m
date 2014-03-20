@@ -12,6 +12,7 @@
 #import "UIImage+Crop.h"
 #import "DBNavigationViewController.h"
 #import "DBCameraContainer.h"
+#import "DBResultsViewController.h"
 
 @interface DBCameraSegueViewController () <DBCameraSegueViewDelegate> {
     DBCameraSegueView *_containerView;
@@ -101,12 +102,14 @@
         
         
         if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
-            //            [_delegate captureImageDidFinish:self.capturedImage withMetadata:self.capturedImageMetadata];
             
             [(DBNavigationViewController *)self.navigationController setImage2:self.capturedImage];
             [(DBNavigationViewController *)self.navigationController setMetaData2:self.capturedImageMetadata];
             
-            [_delegate captureImagesDidFinish:[(DBNavigationViewController *)self.navigationController dataArray]];
+            DBResultsViewController * resultVC = [[DBResultsViewController alloc] initWithNibName:@"DBResultsViewController" bundle:[NSBundle mainBundle]];
+            [resultVC setDelegate:self.delegate];
+            [self.navigationController pushViewController:resultVC animated:YES];
+
             
         }
     }

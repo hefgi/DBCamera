@@ -126,7 +126,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 #endif
     
     switch ( indexPath.row ) {
@@ -151,9 +151,9 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 #endif
-    DetailViewController *detail = [[DetailViewController alloc] init];
-    [detail setDetailImage:[[data objectAtIndex:0] objectAtIndex:0]];
-    [self.navigationController pushViewController:detail animated:NO];
+//    DetailViewController *detail = [[DetailViewController alloc] init];
+//    [detail setDetailImage:[[data objectAtIndex:0] objectAtIndex:0]];
+//    [self.navigationController pushViewController:detail animated:NO];
     [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
