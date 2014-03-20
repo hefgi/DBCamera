@@ -13,6 +13,7 @@
 #import "DBCameraDelegate.h"
 #import "DBCameraSegueViewController.h"
 #import "DBCameraLibrary.h"
+#import "DBNavigationViewController.h"
 
 #import "UIImage+Crop.h"
 #import "DBCameraMacros.h"
@@ -197,7 +198,14 @@
 
 - (void) closeCamera
 {
-    [self dismissCamera];
+    
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 1) {
+        [(DBNavigationViewController *)[self navigationController] setImageCount:0];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self dismissCamera];
+    }
 }
 
 - (void) switchCamera
