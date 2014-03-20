@@ -10,9 +10,10 @@
 #import "DBCameraViewController.h"
 #import "DBCameraContainer.h"
 #import "CustomCamera.h"
+#import "DBNavigationViewController.h"
 
 #define kCellIdentifier @"CellIdentifier"
-#define kCameraTitles @[ @"Open Camera", @"Open Custom Camera", @"Open Camera without Segue", @"Open Camera without Container" ]
+#define kCameraTitles @[ @"Open Camera"]
 
 @interface DetailViewController : UIViewController {
     UIImageView *_imageView;
@@ -96,35 +97,7 @@
 
 - (void) openCamera
 {
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[DBCameraContainer alloc] initWithDelegate:self]];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void) openCustomCamera
-{
-    CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
-    [camera buildInterface];
-    
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[DBCameraViewController alloc] initWithDelegate:self cameraView:camera]];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void) openCameraWithoutSegue
-{
-    DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
-    [cameraController setUseCameraSegue:NO];
-    DBCameraContainer *container = [[DBCameraContainer alloc] initWithDelegate:self];
-    [container setCameraViewController:cameraController];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:container];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void) openCameraWithoutContainer
-{
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[DBCameraViewController initWithDelegate:self]];
+    DBNavigationViewController *nav = [[DBNavigationViewController alloc] initWithRootViewController:[[DBCameraContainer alloc] initWithDelegate:self]];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -160,19 +133,7 @@
         case 0:
             [self openCamera];
             break;
-            
-        case 1:
-            [self openCustomCamera];
-            break;
-        
-        case 2:
-            [self openCameraWithoutSegue];
-            break;
-        
-        case 3:
-            [self openCameraWithoutContainer];
-            break;
-            
+
         default:
             break;
     }
@@ -182,6 +143,17 @@
 
 - (void) dismissCamera
 {
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) captureImagesDidFinish:(NSArray *)data
+{
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+#endif
+    DetailViewController *detail = [[DetailViewController alloc] init];
+    [detail setDetailImage:[[data objectAtIndex:0] objectAtIndex:0]];
+    [self.navigationController pushViewController:detail animated:NO];
     [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -26,6 +26,7 @@
 
 @protocol DBCameraViewControllerDelegate <NSObject>
 @optional
+- (void) captureImagesDidFinish:(NSArray *)data;
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata;
 - (void) dismissCamera;
 @end

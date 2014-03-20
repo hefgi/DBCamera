@@ -10,6 +10,8 @@
 #import "DBCameraMacros.h"
 #import "DBCameraSegueView.h"
 #import "UIImage+Crop.h"
+#import "DBNavigationViewController.h"
+#import "DBCameraContainer.h"
 
 @interface DBCameraSegueViewController () <DBCameraSegueViewDelegate> {
     DBCameraSegueView *_containerView;
@@ -80,11 +82,35 @@
 
 - (void) useImageFromCameraView:(DBCameraSegueView *)cameraView
 {
-    if ( [cameraView isCropModeOn] ) {
-        if ( [_delegate respondsToSelector:@selector(captureImageDidFinish:withMetadata:)] )
-            [_delegate captureImageDidFinish:[[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }] withMetadata:self.capturedImageMetadata];
-    } else if ( [_delegate respondsToSelector:@selector(captureImageDidFinish:withMetadata:)] )
-        [_delegate captureImageDidFinish:self.capturedImage withMetadata:self.capturedImageMetadata];
+    
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+        
+        NSLog(@"FIRST SHOT");
+        
+        
+        [(DBNavigationViewController *)self.navigationController setImage1:self.capturedImage];
+        [(DBNavigationViewController *)self.navigationController setMetaData1:self.capturedImageMetadata];
+        
+        [(DBNavigationViewController *)self.navigationController setImageCount:1];
+        
+        [self.navigationController pushViewController:[[DBCameraContainer alloc] initWithDelegate:self.delegate] animated:YES];
+    }
+    else {
+        
+        NSLog(@"SECOND SHOT");
+        
+        
+        if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
+            //            [_delegate captureImageDidFinish:self.capturedImage withMetadata:self.capturedImageMetadata];
+            
+            [(DBNavigationViewController *)self.navigationController setImage2:self.capturedImage];
+            [(DBNavigationViewController *)self.navigationController setMetaData2:self.capturedImageMetadata];
+            
+            [_delegate captureImagesDidFinish:[(DBNavigationViewController *)self.navigationController dataArray]];
+            
+        }
+    }
+
 }
 
 - (void) cameraView:(DBCameraSegueView *)cameraView cropQuadImageForState:(BOOL)state
