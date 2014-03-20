@@ -89,9 +89,10 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
     
     [self.useButton addTarget:self action:@selector(useImage) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.useButton];
-    
-    [self.cropButton addTarget:self action:@selector(cropQuad:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.cropButton];
+
+    //Desactivate the crop button for now !
+//    [self.cropButton addTarget:self action:@selector(cropQuad:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:self.cropButton];
 }
 
 - (UIView *) stripeView
