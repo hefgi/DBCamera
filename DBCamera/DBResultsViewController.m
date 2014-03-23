@@ -91,12 +91,81 @@
 
 - (IBAction)sendButtonPressed:(id)sender {
     
+    PFObject *wave = [PFObject objectWithClassName:@"Wave"];
+    wave[@"text"] = self.textView.text;
+    wave[@"user"] = [PFUser currentUser];
+    
+    NSData *imageData1 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image1]);
+    PFFile *imageFile1 = [PFFile fileWithName:@"image1.png" data:imageData1];
+    
+    PFObject *img1 = [PFObject objectWithClassName:@"Images"];
+    img1[@"img"] = imageFile1;
+    img1[@"order"] = @1;
+//    img1[@"wave"] = wave;
+    
+    NSData *imageData2 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image2]);
+    PFFile *imageFile2 = [PFFile fileWithName:@"image2.png" data:imageData2];
+    
+    PFObject *img2 = [PFObject objectWithClassName:@"Images"];
+    img2[@"img"] = imageFile2;
+    img2[@"order"] = @2;
+//    img2[@"wave"] = wave;
+    
+    wave[@"images"] = [NSArray arrayWithObjects:img1, img2, nil];
+    
+    [imageFile1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded) {
+            NSLog(@"SUCCESS UPLOAD IMG 1");
+            
+            [imageFile2 saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                
+                if (succeeded) {
+                    NSLog(@"SUCCESS UPLOAD IMG 2");
+                    
+                    [wave saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            NSLog(@"Wave sent to backend : succeded");
+                        }
+                        else {
+                            NSLog(@"Wave sent to backend : not succeded");
+                        }
+
+                        if (error) {
+                            NSLog(@"Wave sent to backend ERROR : %@", [error description]);
+                        }
+                    }];
+                    
+                }
+                else {
+                    NSLog(@"NOT SUCCESS UPLOAD IMG 2");
+                }
+                if (error) {
+                    NSLog(@"ERROR UPLOAD IMG 2 : %@", [error description]);
+                }
+                
+            } progressBlock:^(int percentDone) {
+                
+            }];
+            
+        }
+        else {
+            NSLog(@"NOT SUCCESS UPLOAD IMG 1");
+        }
+        if (error) {
+            NSLog(@"ERROR UPLOAD IMG 1 : %@", [error description]);
+        }
+        
+    } progressBlock:^(int percentDone) {
+        NSLog(@"percentDone IMG1 : %d", percentDone);
+
+    }];
+
+
     if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
 
-        
         [_delegate captureImagesDidFinish:[(DBNavigationViewController *)self.navigationController dataArray]];
         
     }
-    
 }
 @end

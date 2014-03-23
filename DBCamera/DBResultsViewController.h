@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DBCameraDelegate.h"
+#import <Parse/Parse.h>
 
 @interface DBResultsViewController : UIViewController
 
