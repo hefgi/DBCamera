@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "DBCameraDelegate.h"
 #import <Parse/Parse.h>
+#import "MBProgressHUD.h"
 
-@interface DBResultsViewController : UIViewController
+@interface DBResultsViewController : UIViewController <MBProgressHUDDelegate> {
+    MBProgressHUD *HUD;
+}
 
 - (IBAction)cancelButtonPressed:(id)sender;
 - (IBAction)sendButtonPressed:(id)sender;

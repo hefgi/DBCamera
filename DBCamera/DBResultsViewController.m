@@ -76,6 +76,28 @@
     [self.imageView2.layer setMasksToBounds:YES];
 
 //    [self.textView becomeFirstResponder];
+    
+    if (!HUD) {
+        //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        
+        HUD.animationType = MBProgressHUDAnimationFade;
+        
+        HUD.delegate = self;
+        
+        
+//        [HUD show:YES];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        
+    }
+    
+    //    HUD.mode = MBProgressHUDModeIndeterminate;
+    //    HUD.labelText = @"Chargement";
+    
+    HUD.mode = MBProgressHUDModeDeterminate;
+    HUD.labelText = @"Upload...";
 
 }
 
@@ -95,16 +117,18 @@
     wave[@"text"] = self.textView.text;
     wave[@"user"] = [PFUser currentUser];
     
-    NSData *imageData1 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image1]);
-    PFFile *imageFile1 = [PFFile fileWithName:@"image1.png" data:imageData1];
+    NSData *imageData1 = UIImageJPEGRepresentation([(DBNavigationViewController*)self.navigationController image1], 0.8f);
+//    NSData *imageData1 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image1]);
+    PFFile *imageFile1 = [PFFile fileWithName:@"image1.jpg" data:imageData1];
     
     PFObject *img1 = [PFObject objectWithClassName:@"Images"];
     img1[@"img"] = imageFile1;
     img1[@"order"] = @1;
 //    img1[@"wave"] = wave;
     
-    NSData *imageData2 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image2]);
-    PFFile *imageFile2 = [PFFile fileWithName:@"image2.png" data:imageData2];
+    NSData *imageData2 = UIImageJPEGRepresentation([(DBNavigationViewController*)self.navigationController image2], 0.8f);
+//    NSData *imageData2 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image2]);
+    PFFile *imageFile2 = [PFFile fileWithName:@"image2.jpg" data:imageData2];
     
     PFObject *img2 = [PFObject objectWithClassName:@"Images"];
     img2[@"img"] = imageFile2;
@@ -112,6 +136,8 @@
 //    img2[@"wave"] = wave;
     
     wave[@"images"] = [NSArray arrayWithObjects:img1, img2, nil];
+    
+    [HUD show:YES];
     
     [imageFile1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
@@ -126,6 +152,10 @@
                     [wave saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
                             NSLog(@"Wave sent to backend : succeded");
+                            
+                            [HUD hide:YES];
+                            
+                            [self uploadCompleted];
                         }
                         else {
                             NSLog(@"Wave sent to backend : not succeded");
@@ -145,7 +175,8 @@
                 }
                 
             } progressBlock:^(int percentDone) {
-                
+                HUD.progress = 0.5 + ((percentDone/2) /100);
+
             }];
             
         }
@@ -158,9 +189,13 @@
         
     } progressBlock:^(int percentDone) {
         NSLog(@"percentDone IMG1 : %d", percentDone);
+        
+        HUD.progress = (percentDone / 2)/100;
 
     }];
+}
 
+- (void)uploadCompleted {
 
     if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
 
@@ -168,4 +203,15 @@
         
     }
 }
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+    //	[HUD release];
+	HUD = nil;
+}
+
 @end
