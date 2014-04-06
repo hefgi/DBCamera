@@ -37,6 +37,13 @@
                                                                   action:@selector(sendButtonPressed:)];
     
     self.navigationItem.rightBarButtonItem = sendButton;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-btn"]
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(goBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,8 +56,6 @@
     
     [super viewWillAppear:animated];
     
-//    [self.textView becomeFirstResponder];
-    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.0];
     [UIView setAnimationDelay:0.0];
@@ -59,17 +64,9 @@
     [self.textView becomeFirstResponder];  // <---- Only edit this line
     
     [UIView commitAnimations];
-    
-//    [self.imageView1 setImage:[UIImage createRoundedRectImage:[(DBNavigationViewController *)[self navigationController] image1] size:self.imageView1.frame.size roundRadius:8]];
-    
-//    [self.imageView1 setImage:[(DBNavigationViewController *)[self navigationController] image1]];
-    
-//    [self.imageView2 setImage:[UIImage createRoundedRectImage:[(DBNavigationViewController *)[self navigationController] image2] size:self.imageView2.frame.size roundRadius:8]];
-    
-//    [self.imageView2 setImage:[(DBNavigationViewController *)[self navigationController] image2]];
 
-    [self.toolBar setBarTintColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
-    
+    self.navigationItem.title = @"Description";
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -83,41 +80,33 @@
     [self.imageView2.layer setCornerRadius:8.0];
     [self.imageView2.layer setMasksToBounds:YES];
 
-//    [self.textView becomeFirstResponder];
-    
     if (!HUD) {
-        //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
         HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:HUD];
-        
         HUD.animationType = MBProgressHUDAnimationFade;
-        
         HUD.delegate = self;
-        
-        
-//        [HUD show:YES];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
     }
-    
-    //    HUD.mode = MBProgressHUDModeIndeterminate;
-    //    HUD.labelText = @"Chargement";
     
     HUD.mode = MBProgressHUDModeDeterminate;
     HUD.labelText = @"Upload...";
 
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
+- (void)goBack:(id)sender {
     
-//    if ( _delegate && [_delegate respondsToSelector:@selector(dismissCamera)] )
-//        [_delegate dismissCamera];
-//    else
-//        [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"goBack DBResultsViewController");
+    
+    self.navigationItem.title = @"";
+    
+    UIViewController * previousVC = [self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] - 2)];
+    
+    previousVC.navigationItem.title = @"Photo 2";
     
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
+
 
 - (IBAction)sendButtonPressed:(id)sender {
     

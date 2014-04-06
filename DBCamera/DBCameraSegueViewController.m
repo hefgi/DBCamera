@@ -128,11 +128,6 @@
 
 - (void) retakeImageFromCameraView:(DBCameraSegueView *)cameraView
 {
-//    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 1) {
-//        [(DBNavigationViewController *)[self navigationController] setImageCount:0];
-//    }
-//    [self.navigationController popViewControllerAnimated:YES];
-    
     [self goBack:nil];
 }
 
@@ -158,9 +153,7 @@
         
         
         if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
-            
-//            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
-            NSLog(@"frame height %f", self.view.frame.size.height);
+
             UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0,kCropGetY, 640, 640 }];
             
             [(DBNavigationViewController *)self.navigationController setImage2:cropImage];
