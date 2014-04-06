@@ -105,7 +105,7 @@
 - (UIView *) topContainerBar
 {
     if ( !_topContainerBar ) {
-        _topContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, CGRectGetWidth(self.bounds), CGRectGetMinY(IS_RETINA_4 ? previewFrameRetina_4 : previewFrameRetina) }];
+        _topContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, 64, CGRectGetWidth(self.bounds), CGRectGetMinY(IS_RETINA_4 ? previewFrameRetina_4 : previewFrameRetina) }];
         _topContainerBar.backgroundColor = [UIColor blackColor];
     }
     return _topContainerBar;

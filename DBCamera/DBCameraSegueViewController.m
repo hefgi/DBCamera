@@ -38,6 +38,13 @@
     [_containerView setDelegate:self];
     [_containerView buildButtonInterface];
     [self.view addSubview:_containerView];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-btn"]
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(goBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -51,6 +58,20 @@
     [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, newY + 60.0f,
                                                  CGRectGetWidth(_containerView.imageView.frame), newHeight }];
     [_containerView.imageView setDefaultCenter:_containerView.imageView.center];
+    
+    NSLog(@"viewWillAppear SegueViewController");
+
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+        self.navigationItem.title = @"Photo 1";
+    }
+    else {
+        self.navigationItem.title = @"Photo 2";
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
 }
 
 - (CGFloat) getNewHeight
@@ -74,11 +95,35 @@
     _capturedImage = capturedImage;
 }
 
+- (void)goBack:(id)sender {
+    
+    NSLog(@"goBack SegueViewController");
+    
+    self.navigationItem.title = @"";
+    
+    UIViewController * previousVC = [self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] - 2)];
+
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+        previousVC.navigationItem.title = @"Photo 1";
+    }
+    else {
+        previousVC.navigationItem.title = @"Photo 2";
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
 #pragma mark - DBCameraViewDelegate
 
 - (void) retakeImageFromCameraView:(DBCameraSegueView *)cameraView
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 1) {
+//        [(DBNavigationViewController *)[self navigationController] setImageCount:0];
+//    }
+//    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self goBack:nil];
 }
 
 - (void) useImageFromCameraView:(DBCameraSegueView *)cameraView
@@ -88,8 +133,9 @@
         
         NSLog(@"FIRST SHOT");
         
+        UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
         
-        [(DBNavigationViewController *)self.navigationController setImage1:self.capturedImage];
+        [(DBNavigationViewController *)self.navigationController setImage1:cropImage];
         [(DBNavigationViewController *)self.navigationController setMetaData1:self.capturedImageMetadata];
         
         [(DBNavigationViewController *)self.navigationController setImageCount:1];
@@ -103,7 +149,9 @@
         
         if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
             
-            [(DBNavigationViewController *)self.navigationController setImage2:self.capturedImage];
+            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
+            
+            [(DBNavigationViewController *)self.navigationController setImage2:cropImage];
             [(DBNavigationViewController *)self.navigationController setMetaData2:self.capturedImageMetadata];
             
             DBResultsViewController * resultVC = [[DBResultsViewController alloc] initWithNibName:@"DBResultsViewController" bundle:[NSBundle mainBundle]];

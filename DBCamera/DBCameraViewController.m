@@ -92,6 +92,13 @@
         } else
             [self.view addSubview:self.cameraView];
     }
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-btn"]
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(goBack:)];
+    
+    self.parentViewController.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -106,9 +113,26 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+        
+    NSLog(@"viewWillAppear CameraViewController");
+
+    
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+        self.parentViewController.navigationItem.title = @"Photo 1";
+    }
+    else {
+        self.parentViewController.navigationItem.title = @"Photo 2";
+    }
+    
+    [super viewWillAppear:animated];
+
+}
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -117,6 +141,9 @@
     [self.cameraManager performSelector:@selector(stopRunning) withObject:nil afterDelay:0.0];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -130,6 +157,31 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setCameraManager:nil];
 }
+
+
+- (void)goBack:(id)sender {
+    
+    NSLog(@"goBack CameraViewController");
+    
+    self.navigationItem.title = @"";
+    
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 1) {
+        [(DBNavigationViewController *)[self navigationController] setImageCount:0];
+    }
+    
+    UIViewController * previousVC = [self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] - 2)];
+    
+    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+        previousVC.navigationItem.title = @"Photo 1";
+    }
+    else {
+        previousVC.navigationItem.title = @"Photo 2";
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 
 - (BOOL) prefersStatusBarHidden
 {

@@ -10,7 +10,7 @@
 #import "DBCameraDelegate.h"
 
 @class DBCameraView;
-@interface DBCameraViewController : UIViewController
+@interface DBCameraViewController : UIViewController <UINavigationControllerDelegate>
 @property (nonatomic, weak) id <DBCameraViewControllerDelegate> delegate;
 @property (nonatomic, weak) id <DBCameraContainerDelegate> containerDelegate;
 @property (nonatomic, assign) BOOL useCameraSegue;
