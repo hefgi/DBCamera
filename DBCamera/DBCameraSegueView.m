@@ -16,40 +16,16 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 #endif
 
 #define buttonMargin 20.0f
-#define kCropStripeHeight (IS_RETINA_4 ? 154 : 110)
+//#define kCropStripeHeight (IS_RETINA_4 ? 154 : 110)
+#define kCropStripeHeight (IS_RETINA_4 ? 62 : 18)
+#define kBotBarHeight 60.0f
+#define kNavBarHeight 64.0f
 
-@interface StripeView : UIView
-@end
 
-@implementation StripeView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setBackgroundColor:RGBColor(0x000000, .7)];
-    }
-    return self;
-}
-
-- (void) drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextClearRect(context, rect);
-    CGContextSetLineWidth(context, 1.0);
-    
-    CGContextBeginPath(context);
-    CGContextSetStrokeColorWithColor(context, RGBColor(0xffffff, .7).CGColor);
-    CGContextMoveToPoint(context, 0, 0);
-    CGContextAddLineToPoint(context, CGRectGetWidth(rect), 0);
-    CGContextStrokePath(context);
-}
-
-@end
 
 
 @interface DBCameraSegueView () {
-    StripeView *_topStripe, *_bottomStripe;
+    UIView *_topStripe, *_bottomStripe;
 }
 @end
 
@@ -61,20 +37,18 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
     if (self) {
         [self setUserInteractionEnabled:YES];
         
-        _imageView = [[DBCameraImageView alloc] initWithFrame:(CGRect){ 0, 60, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]) - 110 }];
-        [_imageView setBackgroundColor:[UIColor clearColor]];
+        _imageView = [[DBCameraImageView alloc] initWithFrame:(CGRect){ 0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]) - (kCropStripeHeight * 2) }];
+        [_imageView setBackgroundColor:[UIColor yellowColor]];
         [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
         [_imageView setContentMode:UIViewContentModeScaleAspectFit];
         [self addSubview:_imageView];
         
-        _topStripe = [[StripeView alloc] initWithFrame:(CGRect){ 0, 0, CGRectGetWidth(frame), kCropStripeHeight }];
-        [_topStripe setHidden:YES];
-        [_topStripe.layer setAnchorPoint:(CGPoint){ .5, .5 }];
-        [_topStripe setTransform:CGAffineTransformMakeRotation(M_PI)];
+        _topStripe = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, CGRectGetWidth(frame), kCropStripeHeight }];
+        [_topStripe setBackgroundColor:[UIColor colorWithRed:0.121569F green:0.121569F blue:0.121569F alpha:1.0F]];
         [self addSubview:_topStripe];
-        
-        _bottomStripe = [[StripeView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(frame) - (kCropStripeHeight - 60), CGRectGetWidth(frame), (kCropStripeHeight - 60) }];
-        [_bottomStripe setHidden:YES];
+                
+        _bottomStripe = [[UIView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(frame) - kCropStripeHeight - kNavBarHeight - kBotBarHeight, CGRectGetWidth(frame), kCropStripeHeight}];
+        [_bottomStripe setBackgroundColor:[UIColor colorWithRed:0.121569F green:0.121569F blue:0.121569F alpha:1.0F]];
         [self addSubview:_bottomStripe];
     }
     return self;
@@ -98,8 +72,9 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 - (UIView *) stripeView
 {
     if ( !_stripeView ) {
-        _stripeView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), 60 }];
-        [_stripeView setBackgroundColor:RGBColor(0x000000, 1)];
+        _stripeView = [[UIView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(self.frame) - kBotBarHeight - kNavBarHeight, CGRectGetWidth([[UIScreen mainScreen] bounds]), kBotBarHeight}];
+//        [_stripeView setBackgroundColor:RGBColor(0x000000, 1)];
+        [_stripeView setBackgroundColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
     }
     
     return _stripeView;

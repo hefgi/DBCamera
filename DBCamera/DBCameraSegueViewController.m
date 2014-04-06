@@ -30,10 +30,12 @@
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
 #endif
     [self.view setUserInteractionEnabled:YES];
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    
+//    [self.view setBackgroundColor:[UIColor blackColor]];
+    [self.view setBackgroundColor:[UIColor greenColor]];
+
     _containerView = [[DBCameraSegueView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [_containerView setBackgroundColor:RGBColor(0x202020, 1)];
+//    [_containerView setBackgroundColor:RGBColor(0x202020, 1)];
+    [_containerView setBackgroundColor:[UIColor redColor]];
     [_containerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [_containerView setDelegate:self];
     [_containerView buildButtonInterface];
@@ -54,9 +56,14 @@
     [_containerView.imageView setImage:self.capturedImage];
     
     CGFloat newHeight = [self getNewHeight];
-    CGFloat newY = ((CGRectGetHeight([[UIScreen mainScreen] bounds]) - 60) * .5) - (newHeight * .5);
-    [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, newY + 60.0f,
-                                                 CGRectGetWidth(_containerView.imageView.frame), newHeight }];
+//    CGFloat newY = ((CGRectGetHeight([[UIScreen mainScreen] bounds]) - 60) * .5) - (newHeight * .5);
+    CGFloat newY = ((CGRectGetHeight([[UIScreen mainScreen] bounds])) * .5) - (newHeight * .5);
+
+//    [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, newY + 60.0f,
+//                                                 CGRectGetWidth(_containerView.imageView.frame), newHeight }];
+    [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, 0,
+        CGRectGetWidth(_containerView.imageView.frame), newHeight }];
+
     [_containerView.imageView setDefaultCenter:_containerView.imageView.center];
     
     NSLog(@"viewWillAppear SegueViewController");
@@ -149,7 +156,9 @@
         
         if ( [_delegate respondsToSelector:@selector(captureImagesDidFinish:)] ) {
             
-            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
+//            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
+            NSLog(@"frame height %f", self.view.frame.size.height);
+            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 184 : 96, 640, 640 }];
             
             [(DBNavigationViewController *)self.navigationController setImage2:cropImage];
             [(DBNavigationViewController *)self.navigationController setMetaData2:self.capturedImageMetadata];
