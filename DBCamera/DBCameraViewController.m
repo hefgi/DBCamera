@@ -169,16 +169,22 @@
         [(DBNavigationViewController *)[self navigationController] setImageCount:0];
     }
     
-    UIViewController * previousVC = [self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] - 2)];
-    
-    if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
-        previousVC.navigationItem.title = @"Photo 1";
+    if ([self.navigationController.viewControllers count] > 1) {
+        UIViewController * previousVC = [self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] - 2)];
+        
+        if ([(DBNavigationViewController *)[self navigationController] imageCount] == 0) {
+            previousVC.navigationItem.title = @"Photo 1";
+        }
+        else {
+            previousVC.navigationItem.title = @"Photo 2";
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else {
-        previousVC.navigationItem.title = @"Photo 2";
+        [self dismissCamera];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
+
     
 }
 

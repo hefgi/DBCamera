@@ -17,6 +17,17 @@
 #define previewFrameRetina (CGRect){ 0, 65, 320, 342 }
 #define previewFrameRetina_4 (CGRect){ 0, 65, 320, 430 }
 
+#define kTopBarHeight (IS_RETINA_4 ? 62 : 36)
+#define kBotStripeHeight (IS_RETINA_4 ? 62 : 0)
+#define kBotBarHeight 60.0f
+#define kNavBarHeight 64.0f
+
+#define kButtonTopBarImageEdgeInset (IS_RETINA_4 ? UIEdgeInsetsMake(10, 10, 10, 10) : UIEdgeInsetsMake(5, 5, 5, 5))
+#define kButtonTopBarHeight (IS_RETINA_4 ? 50 : 20)
+#define kButtonTopBarY (IS_RETINA_4 ? 5 : 3)
+#define kButtonTopBarCornerRadius (IS_RETINA_4 ? 10 : 5)
+
+
 // pinch
 #define MAX_PINCH_SCALE_NUM   3.f
 #define MIN_PINCH_SCALE_NUM   1.f
@@ -24,6 +35,7 @@
 @interface DBCameraView () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) CALayer *focusBox, *exposeBox;
 @property (nonatomic, strong) UIView *topContainerBar;
+@property (nonatomic, strong) UIView *botStripe;
 @property (nonatomic, strong) UIView *bottomContainerBar;
 @property (nonatomic, strong) UIButton *photoLibraryButton, *triggerButton, *cameraButton, *flashButton, *closeButton, *gridButton;
 
@@ -77,14 +89,13 @@
     [_previewLayer addSublayer:self.exposeBox];
     
     [self addSubview:self.topContainerBar];
+    [self addSubview:self.botStripe];
     [self addSubview:self.bottomContainerBar];
     
     [self.topContainerBar addSubview:self.cameraButton];
     [self.topContainerBar addSubview:self.flashButton];
-    [self.topContainerBar addSubview:self.gridButton];
     
     [self.bottomContainerBar addSubview:self.triggerButton];
-    [self.bottomContainerBar addSubview:self.closeButton];
     
     if ( !self.isLibraryButtonHidden ) {
         [self.bottomContainerBar addSubview:self.photoLibraryButton];
@@ -105,8 +116,8 @@
 - (UIView *) topContainerBar
 {
     if ( !_topContainerBar ) {
-        _topContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, 64, CGRectGetWidth(self.bounds), CGRectGetMinY(IS_RETINA_4 ? previewFrameRetina_4 : previewFrameRetina) }];
-        _topContainerBar.backgroundColor = [UIColor blackColor];
+        _topContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, kNavBarHeight, CGRectGetWidth(self.bounds), kTopBarHeight}];
+        _topContainerBar.backgroundColor = [UIColor colorWithRed:0.121569F green:0.121569F blue:0.121569F alpha:1.0F];
     }
     return _topContainerBar;
 }
@@ -114,12 +125,23 @@
 - (UIView *) bottomContainerBar
 {
     if ( !_bottomContainerBar ) {
-        CGFloat newY = CGRectGetMaxY( IS_RETINA_4 ? previewFrameRetina_4 : previewFrameRetina );
-        _bottomContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, newY, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - newY }];
+        CGFloat newY = CGRectGetHeight(self.bounds) - kBotBarHeight;
+        _bottomContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, newY, CGRectGetWidth(self.bounds), kBotBarHeight}];
         [_bottomContainerBar setUserInteractionEnabled:YES];
-        [_bottomContainerBar setBackgroundColor:RGBColor(0x000000, 1)];
+        [_bottomContainerBar setBackgroundColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
     }
     return _bottomContainerBar;
+}
+
+- (UIView *) botStripe
+{
+    if ( !_botStripe ) {
+        CGFloat newY = CGRectGetHeight(self.bounds) - kBotBarHeight - kBotStripeHeight;
+        _botStripe = [[UIView alloc] initWithFrame:(CGRect){ 0, newY, CGRectGetWidth(self.bounds), kBotStripeHeight}];
+        [_botStripe setUserInteractionEnabled:YES];
+        [_botStripe setBackgroundColor:[UIColor colorWithRed:0.121569F green:0.121569F blue:0.121569F alpha:1.0F]];
+    }
+    return _botStripe;
 }
 
 #pragma mark - Buttons
@@ -127,10 +149,10 @@
 - (UIButton *) photoLibraryButton
 {
     if ( !_photoLibraryButton ) {
-        _photoLibraryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _photoLibraryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_photoLibraryButton setBackgroundColor:RGBColor(0xffffff, .1)];
         [_photoLibraryButton.layer setCornerRadius:4];
-        [_photoLibraryButton setFrame:(CGRect){ CGRectGetWidth(self.bounds) - 59, CGRectGetMidY(self.bottomContainerBar.bounds) - 22, 44, 44 }];
+        [_photoLibraryButton setFrame:(CGRect){ 25, CGRectGetMidY(self.bottomContainerBar.bounds) - 18, 36, 36 }];
         [_photoLibraryButton addTarget:self action:@selector(libraryAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -140,11 +162,10 @@
 - (UIButton *) triggerButton
 {
     if ( !_triggerButton ) {
-        _triggerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_triggerButton setBackgroundColor:[UIColor whiteColor]];
+        _triggerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_triggerButton setImage:[UIImage imageNamed:@"trigger"] forState:UIControlStateNormal];
-        [_triggerButton setFrame:(CGRect){ 0, 0, 66, 66 }];
-        [_triggerButton.layer setCornerRadius:33.0f];
+        [_triggerButton setTintColor:[UIColor whiteColor]];
+        [_triggerButton setFrame:(CGRect){ 0, 0, 44, 44 }];
         [_triggerButton setCenter:(CGPoint){ CGRectGetMidX(self.bottomContainerBar.bounds), CGRectGetMidY(self.bottomContainerBar.bounds) }];
         [_triggerButton addTarget:self action:@selector(triggerAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -169,11 +190,26 @@
 {
     if ( !_cameraButton ) {
         _cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cameraButton setBackgroundColor:[UIColor clearColor]];
+        [_cameraButton setBackgroundColor:[UIColor grayColor]];
         [_cameraButton setImage:[UIImage imageNamed:@"flip"] forState:UIControlStateNormal];
         [_cameraButton setImage:[UIImage imageNamed:@"flipSelected"] forState:UIControlStateSelected];
-        [_cameraButton setFrame:(CGRect){ 25, 17.5f, 30, 30 }];
+        //#define kTopBarHeight (IS_RETINA_4 ? 62 : 36)
+
+        [_cameraButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) + 1, kButtonTopBarY, kButtonTopBarHeight * 1.2, kButtonTopBarHeight }];
+        [_cameraButton setImageEdgeInsets:kButtonTopBarImageEdgeInset];
+
         [_cameraButton addTarget:self action:@selector(changeCamera:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.frame = _cameraButton.bounds;
+        
+        UIBezierPath *roundedPath =
+        [UIBezierPath bezierPathWithRoundedRect:maskLayer.bounds
+                              byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight
+                                    cornerRadii:CGSizeMake(kButtonTopBarCornerRadius, kButtonTopBarCornerRadius)];
+
+        maskLayer.path = [roundedPath CGPath];
+        _cameraButton.layer.mask = maskLayer;
     }
     
     return _cameraButton;
@@ -183,11 +219,23 @@
 {
     if ( !_flashButton ) {
         _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_flashButton setBackgroundColor:[UIColor clearColor]];
+        [_flashButton setBackgroundColor:[UIColor grayColor]];
         [_flashButton setImage:[UIImage imageNamed:@"flash"] forState:UIControlStateNormal];
         [_flashButton setImage:[UIImage imageNamed:@"flashSelected"] forState:UIControlStateSelected];
-        [_flashButton setFrame:(CGRect){ CGRectGetWidth(self.bounds) - 55, 17.5f, 30, 30 }];
+        [_flashButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) - (kButtonTopBarHeight * 1.2) - 1, kButtonTopBarY, kButtonTopBarHeight * 1.2, kButtonTopBarHeight }];
+        [_flashButton setImageEdgeInsets:kButtonTopBarImageEdgeInset];
         [_flashButton addTarget:self action:@selector(flashTriggerAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.frame = _flashButton.bounds;
+        
+        UIBezierPath *roundedPath =
+        [UIBezierPath bezierPathWithRoundedRect:maskLayer.bounds
+                              byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft
+                                    cornerRadii:CGSizeMake(kButtonTopBarCornerRadius, kButtonTopBarCornerRadius)];
+        
+        maskLayer.path = [roundedPath CGPath];
+        _flashButton.layer.mask = maskLayer;
     }
     
     return _flashButton;
