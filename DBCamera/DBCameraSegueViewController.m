@@ -14,6 +14,9 @@
 #import "DBCameraContainer.h"
 #import "DBResultsViewController.h"
 
+#define kCropGetY (IS_RETINA_4 ? 126 : 82)
+
+
 @interface DBCameraSegueViewController () <DBCameraSegueViewDelegate> {
     DBCameraSegueView *_containerView;
 }
@@ -140,7 +143,7 @@
         
         NSLog(@"FIRST SHOT");
         
-        UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
+        UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, kCropGetY, 640, 640 }];
         
         [(DBNavigationViewController *)self.navigationController setImage1:cropImage];
         [(DBNavigationViewController *)self.navigationController setMetaData1:self.capturedImageMetadata];
@@ -158,7 +161,7 @@
             
 //            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 308 : 220, 640, 640 }];
             NSLog(@"frame height %f", self.view.frame.size.height);
-            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0, IS_RETINA_4 ? 184 : 96, 640, 640 }];
+            UIImage * cropImage = [[UIImage screenshotFromView:self.view] croppedImage:(CGRect){ 0,kCropGetY, 640, 640 }];
             
             [(DBNavigationViewController *)self.navigationController setImage2:cropImage];
             [(DBNavigationViewController *)self.navigationController setMetaData2:self.capturedImageMetadata];

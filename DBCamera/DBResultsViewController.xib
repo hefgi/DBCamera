@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -10,7 +10,6 @@
                 <outlet property="imageView1" destination="t3L-mx-5Bd" id="0lL-aS-Cun"/>
                 <outlet property="imageView2" destination="7OE-Ff-ifV" id="vZ1-jC-JON"/>
                 <outlet property="textView" destination="eD6-sf-ooN" id="sTu-Cd-m2u"/>
-                <outlet property="toolBar" destination="dL2-m6-w6p" id="S15-PD-36z"/>
                 <outlet property="view" destination="1" id="8d2-09-4Hd"/>
             </connections>
         </placeholder>
@@ -20,11 +19,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HI7-iC-SBj">
-                    <rect key="frame" x="0.0" y="64" width="320" height="200"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="264"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Some text." translatesAutoresizingMaskIntoConstraints="NO" id="eD6-sf-ooN">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -34,7 +33,7 @@
                             </connections>
                         </textView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t3L-mx-5Bd">
-                            <rect key="frame" x="40" y="90" width="100" height="100"/>
+                            <rect key="frame" x="40" y="154" width="100" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="htk-mS-bGp"/>
@@ -42,7 +41,7 @@
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7OE-Ff-ifV">
-                            <rect key="frame" x="180" y="90" width="100" height="100"/>
+                            <rect key="frame" x="180" y="154" width="100" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="2Xd-Cr-xtd"/>
@@ -63,45 +62,16 @@
                         <constraint firstAttribute="bottom" secondItem="t3L-mx-5Bd" secondAttribute="bottom" constant="10" id="vdc-iq-SRN"/>
                     </constraints>
                 </view>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL2-m6-w6p">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="r35-tc-IgG"/>
-                    </constraints>
-                    <items>
-                        <barButtonItem title="Annuler" id="53H-ZB-YUc">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="-1" id="QMD-vW-fxy"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Wkc-6X-T9D"/>
-                        <barButtonItem title="Wave" id="WwD-i1-2oX">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="s8n-gf-Mvw"/>
-                        <barButtonItem title="Publier" id="9HS-4N-8yF">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="sendButtonPressed:" destination="-1" id="4qq-zS-UHO"/>
-                            </connections>
-                        </barButtonItem>
-                    </items>
-                    <color key="barTintColor" red="0.23529411759999999" green="0.76862745099999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="HI7-iC-SBj" secondAttribute="trailing" id="Ai6-Ce-nQh"/>
                 <constraint firstItem="HI7-iC-SBj" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="VMs-Pp-QGM"/>
-                <constraint firstItem="dL2-m6-w6p" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="aca-Nh-ujl"/>
-                <constraint firstItem="HI7-iC-SBj" firstAttribute="top" secondItem="dL2-m6-w6p" secondAttribute="bottom" id="atv-WZ-h1r"/>
-                <constraint firstItem="dL2-m6-w6p" firstAttribute="top" secondItem="1" secondAttribute="top" id="b7T-DP-jTh"/>
+                <constraint firstItem="HI7-iC-SBj" firstAttribute="top" secondItem="1" secondAttribute="top" id="eMD-kJ-eOK"/>
                 <constraint firstAttribute="bottom" secondItem="HI7-iC-SBj" secondAttribute="bottom" constant="216" id="edX-O7-8qw"/>
-                <constraint firstAttribute="trailing" secondItem="dL2-m6-w6p" secondAttribute="trailing" id="zob-DG-Grk"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

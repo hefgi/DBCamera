@@ -29,6 +29,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send"
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(sendButtonPressed:)];
+    
+    self.navigationItem.rightBarButtonItem = sendButton;
 }
 
 - (void)didReceiveMemoryWarning
