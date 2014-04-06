@@ -56,28 +56,28 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 
 - (void) buildButtonInterface
 {
-    [self addSubview:self.stripeView];
+    [self addSubview:self.bottomContainerBar];
     
-    [self.retakeButton addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.retakeButton];
+//    [self.retakeButton addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:self.retakeButton];
     
     [self.useButton addTarget:self action:@selector(useImage) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.useButton];
+    [self.bottomContainerBar addSubview:self.useButton];
 
     //Desactivate the crop button for now !
 //    [self.cropButton addTarget:self action:@selector(cropQuad:) forControlEvents:UIControlEventTouchUpInside];
 //    [self addSubview:self.cropButton];
 }
 
-- (UIView *) stripeView
+- (UIView *) bottomContainerBar
 {
-    if ( !_stripeView ) {
-        _stripeView = [[UIView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(self.frame) - kBotBarHeight - kNavBarHeight, CGRectGetWidth([[UIScreen mainScreen] bounds]), kBotBarHeight}];
+    if ( !_bottomContainerBar ) {
+        _bottomContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(self.frame) - kBotBarHeight - kNavBarHeight, CGRectGetWidth([[UIScreen mainScreen] bounds]), kBotBarHeight}];
 //        [_stripeView setBackgroundColor:RGBColor(0x000000, 1)];
-        [_stripeView setBackgroundColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
+        [_bottomContainerBar setBackgroundColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
     }
     
-    return _stripeView;
+    return _bottomContainerBar;
 }
 
 - (void) setCropMode:(BOOL)cropMode
@@ -89,7 +89,7 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 
 - (UIButton *) baseButton
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setBackgroundColor:[UIColor clearColor]];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -114,9 +114,8 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
     if ( !_useButton ) {
         _useButton = [self baseButton];
         [_useButton setTitle:DBCameraLocalizedStrings(@"button.use") forState:UIControlStateNormal];
-        [_useButton.titleLabel sizeToFit];
-        [_useButton sizeToFit];
-        [_useButton setFrame:(CGRect){ CGRectGetWidth(self.frame) - (CGRectGetWidth(_useButton.frame) + buttonMargin), 0, CGRectGetWidth(_useButton.frame) + buttonMargin, 60 }];
+        [_useButton.titleLabel setFont:[UIFont systemFontOfSize:18.0]];
+        [_useButton setFrame:(CGRect){0, 0, CGRectGetWidth(self.bottomContainerBar.frame), kBotBarHeight}];
     }
     
     return _useButton;

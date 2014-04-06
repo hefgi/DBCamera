@@ -14,7 +14,7 @@
 @interface DBCameraSegueView : UIView
 @property (nonatomic, weak) id <DBCameraSegueViewDelegate> delegate;
 @property (nonatomic, strong) DBCameraImageView *imageView;
-@property (nonatomic, strong) UIView *stripeView;
+@property (nonatomic, strong) UIView *bottomContainerBar;
 @property (nonatomic, strong) UIButton *retakeButton, *useButton, *cropButton;
 @property (nonatomic, assign, getter = isCropModeOn) BOOL cropMode;
 
