@@ -36,6 +36,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL) prefersStatusBarHidden
+{
+    return NO;
+}
+
 - (NSArray *)dataArray {
     
     NSArray * array = [NSArray arrayWithObjects:[NSArray arrayWithObjects:[self image1], [self metaData1], nil],[NSArray arrayWithObjects:[self image2], [self metaData2], nil], nil];

@@ -15,8 +15,7 @@
 @property (nonatomic, weak) id <DBCameraSegueViewDelegate> delegate;
 @property (nonatomic, strong) DBCameraImageView *imageView;
 @property (nonatomic, strong) UIView *bottomContainerBar;
-@property (nonatomic, strong) UIButton *retakeButton, *useButton, *cropButton;
-@property (nonatomic, assign, getter = isCropModeOn) BOOL cropMode;
+@property (nonatomic, strong) UIButton *useButton;
 
 - (void) buildButtonInterface;
 
@@ -26,5 +25,5 @@
 @optional
 - (void) retakeImageFromCameraView:(DBCameraSegueView *)cameraView;
 - (void) useImageFromCameraView:(DBCameraSegueView *)cameraView;
-- (void) cameraView:(DBCameraSegueView *)cameraView cropQuadImageForState:(BOOL)state;
+
 @end

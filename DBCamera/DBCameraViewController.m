@@ -9,7 +9,6 @@
 #import "DBCameraViewController.h"
 #import "DBCameraManager.h"
 #import "DBCameraView.h"
-#import "DBCameraGridView.h"
 #import "DBCameraDelegate.h"
 #import "DBCameraSegueViewController.h"
 #import "DBCameraLibrary.h"
@@ -29,7 +28,6 @@
 @property (nonatomic, strong) id customCamera;
 @property (nonatomic, strong) DBCameraManager *cameraManager;
 
-@property (nonatomic, strong) DBCameraGridView *cameraGridView;
 @end
 
 @implementation DBCameraViewController
@@ -142,8 +140,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -188,7 +184,6 @@
     
 }
 
-
 - (BOOL) prefersStatusBarHidden
 {
     return YES;
@@ -224,17 +219,6 @@
     return _cameraManager;
 }
 
-- (DBCameraGridView *) cameraGridView
-{
-    if ( !_cameraGridView ) {
-        _cameraGridView = [[DBCameraGridView alloc] initWithFrame:self.cameraView.previewLayer.frame];
-        _cameraGridView.numberOfColumns = 2;
-        _cameraGridView.numberOfRows = 2;
-        [self.cameraView insertSubview:_cameraGridView atIndex:1];
-    }
-    
-    return _cameraGridView;
-}
 
 - (void) rotationChanged:(NSNotification *)notification
 {
@@ -243,13 +227,6 @@
          [[UIDevice currentDevice] orientation] != UIDeviceOrientationFaceDown ) {
         _deviceOrientation = [[UIDevice currentDevice] orientation];
     }
-}
-
-- (void) disPlayGridViewToCameraView:(BOOL)show
-{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.cameraGridView.alpha = (show ? 1.0 : 0.0);
-    } completion:NULL];
 }
 
 #pragma mark - CameraManagerDelagate
@@ -270,10 +247,6 @@
 {
     if ( [self.cameraManager hasMultipleCameras] )
         [self.cameraManager cameraToggle];
-}
-
-- (void) cameraView:(UIView *)camera showGridView:(BOOL)show {
-    [self disPlayGridViewToCameraView:!show];
 }
 
 - (void) triggerFlashForMode:(AVCaptureFlashMode)flashMode

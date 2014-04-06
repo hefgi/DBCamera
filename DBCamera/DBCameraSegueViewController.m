@@ -33,12 +33,10 @@
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
 #endif
     [self.view setUserInteractionEnabled:YES];
-//    [self.view setBackgroundColor:[UIColor blackColor]];
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor blackColor]];
 
     _containerView = [[DBCameraSegueView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    [_containerView setBackgroundColor:RGBColor(0x202020, 1)];
-    [_containerView setBackgroundColor:[UIColor redColor]];
+    [_containerView setBackgroundColor:RGBColor(0x202020, 1)];
     [_containerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [_containerView setDelegate:self];
     [_containerView buildButtonInterface];
@@ -59,11 +57,7 @@
     [_containerView.imageView setImage:self.capturedImage];
     
     CGFloat newHeight = [self getNewHeight];
-//    CGFloat newY = ((CGRectGetHeight([[UIScreen mainScreen] bounds]) - 60) * .5) - (newHeight * .5);
-    CGFloat newY = ((CGRectGetHeight([[UIScreen mainScreen] bounds])) * .5) - (newHeight * .5);
 
-//    [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, newY + 60.0f,
-//                                                 CGRectGetWidth(_containerView.imageView.frame), newHeight }];
     [_containerView.imageView setFrame:(CGRect){ _containerView.imageView.frame.origin.x, 0,
         CGRectGetWidth(_containerView.imageView.frame), newHeight }];
 
@@ -97,7 +91,7 @@
 
 - (BOOL) prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void) setCapturedImage:(UIImage *)capturedImage
@@ -169,12 +163,5 @@
 
 }
 
-- (void) cameraView:(DBCameraSegueView *)cameraView cropQuadImageForState:(BOOL)state
-{
-    [cameraView setCropMode:state];
-    [cameraView.imageView setGesturesEnabled:state];
-    if ( state == NO )
-        [cameraView.imageView resetPosition];
-}
 
 @end

@@ -37,7 +37,7 @@
 @property (nonatomic, strong) UIView *topContainerBar;
 @property (nonatomic, strong) UIView *botStripe;
 @property (nonatomic, strong) UIView *bottomContainerBar;
-@property (nonatomic, strong) UIButton *photoLibraryButton, *triggerButton, *cameraButton, *flashButton, *closeButton, *gridButton;
+@property (nonatomic, strong) UIButton *photoLibraryButton, *triggerButton, *cameraButton, *flashButton;
 
 // pinch
 @property (nonatomic, assign) CGFloat preScaleNum;
@@ -173,18 +173,6 @@
     return _triggerButton;
 }
 
-- (UIButton *) closeButton
-{
-    if ( !_closeButton ) {
-        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setBackgroundColor:[UIColor clearColor]];
-        [_closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        [_closeButton setFrame:(CGRect){ 25,  CGRectGetMidY(self.bottomContainerBar.bounds) - 15, 30, 30 }];
-        [_closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    return _closeButton;
-}
 
 - (UIButton *) cameraButton
 {
@@ -193,7 +181,6 @@
         [_cameraButton setBackgroundColor:[UIColor grayColor]];
         [_cameraButton setImage:[UIImage imageNamed:@"flip"] forState:UIControlStateNormal];
         [_cameraButton setImage:[UIImage imageNamed:@"flipSelected"] forState:UIControlStateSelected];
-        //#define kTopBarHeight (IS_RETINA_4 ? 62 : 36)
 
         [_cameraButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) + 1, kButtonTopBarY, kButtonTopBarHeight * 1.2, kButtonTopBarHeight }];
         [_cameraButton setImageEdgeInsets:kButtonTopBarImageEdgeInset];
@@ -241,19 +228,6 @@
     return _flashButton;
 }
 
-- (UIButton *) gridButton
-{
-    if ( !_gridButton ) {
-        _gridButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_gridButton setBackgroundColor:[UIColor clearColor]];
-        [_gridButton setImage:[UIImage imageNamed:@"cameraGridNormal"] forState:UIControlStateNormal];
-        [_gridButton setImage:[UIImage imageNamed:@"cameraGridSelected"] forState:UIControlStateSelected];
-        [_gridButton setFrame:(CGRect){ 0, 0, 30, 30 }];
-        [_gridButton setCenter:(CGPoint){ CGRectGetMidX(self.topContainerBar.bounds), CGRectGetMidY(self.topContainerBar.bounds) }];
-        [_gridButton addTarget:self action:@selector(addGridToCameraAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _gridButton;
-}
 
 #pragma mark - Focus / Expose Box
 
@@ -361,14 +335,6 @@
         [_delegate openLibrary];
 }
 
-- (void) addGridToCameraAction:(UIButton *)button
-{
-    if ( [_delegate respondsToSelector:@selector(cameraView:showGridView:)] ) {
-        [_delegate cameraView:self showGridView:button.selected];
-        [button setSelected:!button.isSelected];
-    }
-}
-
 - (void) flashTriggerAction:(UIButton *)button
 {
     if ( [_delegate respondsToSelector:@selector(triggerFlashForMode:)] ) {
@@ -385,12 +351,6 @@
     [self.flashButton setEnabled:!button.isSelected];
     if ( [self.delegate respondsToSelector:@selector(switchCamera)] )
         [self.delegate switchCamera];
-}
-
-- (void) close
-{
-    if ( [_delegate respondsToSelector:@selector(closeCamera)] )
-        [_delegate closeCamera];
 }
 
 - (void) triggerAction:(UIButton *)button

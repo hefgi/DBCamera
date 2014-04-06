@@ -16,7 +16,6 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 #endif
 
 #define buttonMargin 20.0f
-//#define kCropStripeHeight (IS_RETINA_4 ? 154 : 110)
 #define kCropStripeHeight (IS_RETINA_4 ? 62 : 18)
 #define kBotBarHeight 60.0f
 #define kNavBarHeight 64.0f
@@ -58,33 +57,19 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
 {
     [self addSubview:self.bottomContainerBar];
     
-//    [self.retakeButton addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:self.retakeButton];
-    
     [self.useButton addTarget:self action:@selector(useImage) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomContainerBar addSubview:self.useButton];
 
-    //Desactivate the crop button for now !
-//    [self.cropButton addTarget:self action:@selector(cropQuad:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:self.cropButton];
 }
 
 - (UIView *) bottomContainerBar
 {
     if ( !_bottomContainerBar ) {
         _bottomContainerBar = [[UIView alloc] initWithFrame:(CGRect){ 0, CGRectGetHeight(self.frame) - kBotBarHeight - kNavBarHeight, CGRectGetWidth([[UIScreen mainScreen] bounds]), kBotBarHeight}];
-//        [_stripeView setBackgroundColor:RGBColor(0x000000, 1)];
         [_bottomContainerBar setBackgroundColor:[UIColor colorWithRed:0.235 green:0.769 blue:0.8 alpha:1.0]];
     }
     
     return _bottomContainerBar;
-}
-
-- (void) setCropMode:(BOOL)cropMode
-{
-    _cropMode = cropMode;
-    [_topStripe setHidden:!_cropMode];
-    [_bottomStripe setHidden:!_cropMode];
 }
 
 - (UIButton *) baseButton
@@ -94,19 +79,6 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     return button;
-}
-
-- (UIButton *) retakeButton
-{
-    if ( !_retakeButton ) {
-        _retakeButton = [self baseButton];
-        [_retakeButton setTitle:DBCameraLocalizedStrings(@"button.retake") forState:UIControlStateNormal];
-        [_retakeButton.titleLabel sizeToFit];
-        [_retakeButton sizeToFit];
-        [_retakeButton setFrame:(CGRect){ 0, 0, CGRectGetWidth(_retakeButton.frame) + buttonMargin, 60 }];
-    }
-    
-    return _retakeButton;
 }
 
 - (UIButton *) useButton
@@ -119,19 +91,6 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
     }
     
     return _useButton;
-}
-
-- (UIButton *) cropButton
-{
-    if ( !_cropButton) {
-        _cropButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cropButton setBackgroundColor:[UIColor clearColor]];
-        [_cropButton setImage:[UIImage imageNamed:@"Crop"] forState:UIControlStateNormal];
-        [_cropButton setImage:[UIImage imageNamed:@"CropSelected"] forState:UIControlStateSelected];
-        [_cropButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) - 15, 15, 30, 30 }];
-    }
-    
-    return _cropButton;
 }
 
 #pragma mark - Methods
@@ -148,11 +107,6 @@ NSLocalizedStringFromTable(key, @"DBCamera", nil)
         [_delegate useImageFromCameraView:self];
 }
 
-- (void) cropQuad:(UIButton *)button
-{
-    [button setSelected:!button.isSelected];
-    if ( [_delegate respondsToSelector:@selector(cameraView:cropQuadImageForState:)] )
-        [_delegate cameraView:self cropQuadImageForState:button.isSelected];
-}
+
 
 @end

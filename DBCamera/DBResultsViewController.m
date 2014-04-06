@@ -30,7 +30,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    
     UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send"
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
@@ -115,7 +114,6 @@
     wave[@"user"] = [PFUser currentUser];
     
     NSData *imageData1 = UIImageJPEGRepresentation([(DBNavigationViewController*)self.navigationController image1], 0.8f);
-//    NSData *imageData1 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image1]);
     PFFile *imageFile1 = [PFFile fileWithName:@"image1.jpg" data:imageData1];
     
     PFObject *img1 = [PFObject objectWithClassName:@"Images"];
@@ -124,14 +122,11 @@
 //    img1[@"wave"] = wave;
     
     NSData *imageData2 = UIImageJPEGRepresentation([(DBNavigationViewController*)self.navigationController image2], 0.8f);
-//    NSData *imageData2 = UIImagePNGRepresentation([(DBNavigationViewController*)self.navigationController image2]);
     PFFile *imageFile2 = [PFFile fileWithName:@"image2.jpg" data:imageData2];
     
     PFObject *img2 = [PFObject objectWithClassName:@"Images"];
     img2[@"img"] = imageFile2;
     img2[@"order"] = @2;
-//    img2[@"wave"] = wave;
-    
     wave[@"images"] = [NSArray arrayWithObjects:img1, img2, nil];
     
     [HUD show:YES];
@@ -207,7 +202,6 @@
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
-    //	[HUD release];
 	HUD = nil;
 }
 
