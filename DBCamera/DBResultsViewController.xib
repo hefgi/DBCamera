@@ -9,7 +9,7 @@
             <connections>
                 <outlet property="imageView1" destination="t3L-mx-5Bd" id="0lL-aS-Cun"/>
                 <outlet property="imageView2" destination="7OE-Ff-ifV" id="vZ1-jC-JON"/>
-                <outlet property="textView" destination="eD6-sf-ooN" id="sTu-Cd-m2u"/>
+                <outlet property="textView" destination="CUD-KJ-pZI" id="QWd-gs-HTa"/>
                 <outlet property="view" destination="1" id="8d2-09-4Hd"/>
             </connections>
         </placeholder>
@@ -23,39 +23,60 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLh-Ua-hfo" userLabel="Text input view">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                            <rect key="frame" x="0.0" y="70" width="320" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Some text." translatesAutoresizingMaskIntoConstraints="NO" id="eD6-sf-ooN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKI-yh-bpb">
+                                    <rect key="frame" x="94" y="10" width="2" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="CPz-eY-BVB"/>
+                                        <constraint firstAttribute="width" constant="2" id="dSx-wE-dgt"/>
+                                    </constraints>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZPF-ot-tr2">
+                                    <rect key="frame" x="10" y="0.0" width="70" height="70"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="70" id="czu-E1-hK1"/>
+                                    </constraints>
+                                </imageView>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Tell us more" translatesAutoresizingMaskIntoConstraints="NO" id="CUD-KJ-pZI">
+                                    <rect key="frame" x="101" y="5" width="208" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     <connections>
-                                        <outlet property="delegate" destination="-1" id="09a-yz-GdH"/>
+                                        <outlet property="delegate" destination="-1" id="9R6-As-awa"/>
                                     </connections>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="eD6-sf-ooN" firstAttribute="leading" secondItem="MLh-Ua-hfo" secondAttribute="leading" id="1k5-HK-T4L"/>
-                                <constraint firstAttribute="height" constant="130" id="1wT-Xy-I4O"/>
-                                <constraint firstItem="eD6-sf-ooN" firstAttribute="top" secondItem="MLh-Ua-hfo" secondAttribute="top" id="dbi-lf-V8N"/>
-                                <constraint firstAttribute="trailing" secondItem="eD6-sf-ooN" secondAttribute="trailing" id="hlv-K4-rdG"/>
-                                <constraint firstAttribute="bottom" secondItem="eD6-sf-ooN" secondAttribute="bottom" id="nGN-XA-vFC"/>
+                                <constraint firstItem="ZPF-ot-tr2" firstAttribute="leading" secondItem="MLh-Ua-hfo" secondAttribute="leading" constant="10" id="1UH-XP-eCq"/>
+                                <constraint firstItem="MKI-yh-bpb" firstAttribute="top" secondItem="MLh-Ua-hfo" secondAttribute="top" constant="10" id="1a4-7p-op5"/>
+                                <constraint firstItem="ZPF-ot-tr2" firstAttribute="top" secondItem="MLh-Ua-hfo" secondAttribute="top" id="1gJ-jO-WhF"/>
+                                <constraint firstAttribute="height" constant="70" id="1wT-Xy-I4O"/>
+                                <constraint firstAttribute="trailing" secondItem="CUD-KJ-pZI" secondAttribute="trailing" constant="11" id="5Tg-nA-bwp"/>
+                                <constraint firstItem="CUD-KJ-pZI" firstAttribute="top" secondItem="MLh-Ua-hfo" secondAttribute="top" constant="5" id="UZn-wF-T6i"/>
+                                <constraint firstItem="CUD-KJ-pZI" firstAttribute="bottom" secondItem="ZPF-ot-tr2" secondAttribute="bottom" id="d6A-1E-w46"/>
+                                <constraint firstItem="CUD-KJ-pZI" firstAttribute="leading" secondItem="MKI-yh-bpb" secondAttribute="trailing" constant="5" id="eNP-Tq-A0y"/>
+                                <constraint firstItem="MKI-yh-bpb" firstAttribute="leading" secondItem="ZPF-ot-tr2" secondAttribute="trailing" constant="14" id="hgH-xV-hDF"/>
+                                <constraint firstAttribute="bottom" secondItem="ZPF-ot-tr2" secondAttribute="bottom" id="wLo-Q9-VBr"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVp-Uh-Ar0" userLabel="Image Views view">
-                            <rect key="frame" x="0.0" y="130" width="320" height="90"/>
+                            <rect key="frame" x="0.0" y="140" width="320" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7OE-Ff-ifV">
-                                    <rect key="frame" x="170" y="10" width="130" height="70"/>
+                                    <rect key="frame" x="170" y="10" width="130" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t3L-mx-5Bd">
-                                    <rect key="frame" x="20" y="10" width="130" height="70"/>
+                                    <rect key="frame" x="20" y="10" width="130" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
@@ -129,7 +150,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="giq-Xm-hIN" secondAttribute="bottom" id="0DP-Oc-I5N"/>
-                        <constraint firstItem="MLh-Ua-hfo" firstAttribute="top" secondItem="HI7-iC-SBj" secondAttribute="top" id="HQB-RN-Y1E"/>
+                        <constraint firstItem="MLh-Ua-hfo" firstAttribute="top" secondItem="HI7-iC-SBj" secondAttribute="top" constant="70" id="HQB-RN-Y1E"/>
                         <constraint firstItem="MLh-Ua-hfo" firstAttribute="leading" secondItem="HI7-iC-SBj" secondAttribute="leading" id="M6S-Si-8Dq"/>
                         <constraint firstItem="giq-Xm-hIN" firstAttribute="top" secondItem="XVp-Uh-Ar0" secondAttribute="bottom" id="MHR-AN-qhM"/>
                         <constraint firstItem="XVp-Uh-Ar0" firstAttribute="top" secondItem="MLh-Ua-hfo" secondAttribute="bottom" id="MpN-X3-25e"/>
@@ -153,4 +174,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="avatar.png" width="76" height="78"/>
+    </resources>
 </document>

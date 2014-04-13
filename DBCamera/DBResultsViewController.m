@@ -78,7 +78,7 @@
     [self.imageView1.layer setMasksToBounds:YES];
     [self.imageView2.layer setCornerRadius:8.0];
     [self.imageView2.layer setMasksToBounds:YES];
-
+    
     if (!HUD) {
         HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:HUD];
