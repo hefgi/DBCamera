@@ -23,7 +23,7 @@
 #define kNavBarHeight 64.0f
 
 #define kButtonTopBarImageEdgeInset (IS_RETINA_4 ? UIEdgeInsetsMake(10, 10, 10, 10) : UIEdgeInsetsMake(5, 5, 5, 5))
-#define kButtonTopBarHeight (IS_RETINA_4 ? 50 : 20)
+#define kButtonTopBarHeight (IS_RETINA_4 ? 50 : 30)
 #define kButtonTopBarY (IS_RETINA_4 ? 5 : 3)
 #define kButtonTopBarCornerRadius (IS_RETINA_4 ? 10 : 5)
 
