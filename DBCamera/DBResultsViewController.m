@@ -9,6 +9,7 @@
 #import "DBResultsViewController.h"
 #import "DBNavigationViewController.h"
 #import "UIImage+Crop.h"
+#import "UIImageView+Border.h"
 
 @interface DBResultsViewController ()
 
@@ -43,6 +44,9 @@
                                                                   action:@selector(goBack:)];
     
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    [self.avatarImageView roundedImageView];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +69,11 @@
     [UIView commitAnimations];
 
     self.navigationItem.title = @"Description";
+    
+    [self.avatarImageView setFile:[[PFUser currentUser] objectForKey:kWaverUserProfilePicSmallKey]];
+    [self.avatarImageView loadInBackground:^(UIImage *image, NSError *error) {
+        NSLog(@"download avatar end");
+    }];
 
 }
 
