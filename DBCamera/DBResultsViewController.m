@@ -136,6 +136,13 @@
     PFObject *img2 = [PFObject objectWithClassName:@"Images"];
     img2[@"img"] = imageFile2;
     img2[@"order"] = @2;
+    
+    PFACL * postACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [postACL setPublicReadAccess:YES];
+    [postACL setPublicWriteAccess:YES];
+    img1.ACL = postACL;
+    img2.ACL = postACL;
+    
     wave[@"images"] = [NSArray arrayWithObjects:img1, img2, nil];
     
     [HUD show:YES];
